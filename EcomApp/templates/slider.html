@@ -1,0 +1,57 @@
+{% load static %}
+<div class="slider-with-banner">
+	<div class="container">
+		<div class="row">
+			<!-- Begin Slider Area -->
+			<div class="col-lg-8 col-md-8">
+				<div class="slider-area">
+					<div class="slider-active owl-carousel">
+						<!-- Begin Single Slide Area -->
+						{% for p in sliding_images %}
+
+						<div class="single-slide align-center-left animation-style-0{{p.id}} bg-{{p.id}}">
+							<img src="{{p.ImageUrl}}" alt="placeholder+image">
+						
+							<div class="slider-progress"></div>
+							<div class="slider-content">
+								<h5>Sale Offer <span>-20% Off</span> This Week</h5>
+								<h2>{{p.title}}</h2>
+								<h3>Starting at <span>${{p.new_price}}</span></h3>
+								<div class="default-btn slide-btn">
+									<a class="links" href="shop-left-sidebar.html"
+										>Shopinh now</a>
+								</div>
+							</div>
+						</div>
+
+
+
+						{% endfor %}
+						<!-- Single Slide Area End Here -->
+
+						<!-- Single Slide Area End Here -->
+					</div>
+				</div>
+			</div>
+			<!-- Slider Area End Here -->
+			<!-- Begin Li Banner Area -->
+
+			<div class="col-lg-4 col-md-4 text-center pt-xs-30">
+				{% for p in sliding_images %}
+				{%if p.id < 3 %}
+				
+
+				<div class="li-banner">
+					<a href="#">
+						<img src="{{p.ImageUrl}}" alt="" />
+					</a>
+				</div>
+				
+			  {%endif%}
+			  {% endfor %}
+			</div>
+			<!-- Li Banner Area End Here -->
+		</div>
+	</div>
+</div>
+<!-- Slider With Banner Area End Here -->
