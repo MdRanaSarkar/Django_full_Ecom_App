@@ -1,57 +1,76 @@
-{% load static %}
-<div class="slider-with-banner">
-	<div class="container">
-		<div class="row">
-			<!-- Begin Slider Area -->
-			<div class="col-lg-8 col-md-8">
-				<div class="slider-area">
-					<div class="slider-active owl-carousel">
-						<!-- Begin Single Slide Area -->
-						{% for p in sliding_images %}
+<!-- Begin Slider With Category Menu Area -->
+            <div class="slider-with-banner">
+                <div class="container">
+                    <div class="row">
+                        <!-- Begin Category Menu Area -->
+                        <div class="col-lg-3">
+                            <!--Category Menu Start-->
+                            <div class="category-menu">
+                                <div class="category-heading">
+                                    <h2 class="categories-toggle"><span>categories</span></h2>
+                                </div>
+                                <div id="cate-toggle" class="category-menu-list">
 
-						<div class="single-slide align-center-left animation-style-0{{p.id}} bg-{{p.id}}">
-							<img src="{{p.ImageUrl}}" alt="placeholder+image">
-						
-							<div class="slider-progress"></div>
-							<div class="slider-content">
-								<h5>Sale Offer <span>-20% Off</span> This Week</h5>
-								<h2>{{p.title}}</h2>
-								<h3>Starting at <span>${{p.new_price}}</span></h3>
-								<div class="default-btn slide-btn">
-									<a class="links" href="shop-left-sidebar.html"
-										>Shopinh now</a>
-								</div>
-							</div>
-						</div>
-
-
-
-						{% endfor %}
-						<!-- Single Slide Area End Here -->
-
-						<!-- Single Slide Area End Here -->
-					</div>
-				</div>
-			</div>
-			<!-- Slider Area End Here -->
-			<!-- Begin Li Banner Area -->
-
-			<div class="col-lg-4 col-md-4 text-center pt-xs-30">
-				{% for p in sliding_images %}
-				{%if p.id < 3 %}
-				
-
-				<div class="li-banner">
-					<a href="#">
-						<img src="{{p.ImageUrl}}" alt="" />
-					</a>
-				</div>
-				
-			  {%endif%}
-			  {% endfor %}
-			</div>
-			<!-- Li Banner Area End Here -->
-		</div>
-	</div>
-</div>
-<!-- Slider With Banner Area End Here -->
+                                        {% load mptt_tags %}
+                                        
+                                    <ul>
+                                        {% recursetree category %}
+                                      
+                                        <li class="right-menu"><a href="{%url 'category_product' id=node.id slug=node.slug %}">{{ node.title }}</a>
+                                             {% if not node.is_leaf_node %}  
+                                            <ul class="cat-mega-menu">
+                                                <li class="right-menu cat-mega-title">
+                                                   <a href="">Sub Category</a>
+                                                    <ul>
+                                                        <li><a href="{%url 'category_product' id=node.id slug=node.slug %}">{{ children }}</a></li>
+                                                  
+                                                    </ul>
+                                                </li>
+                                               
+                                            </ul>
+                                               {% endif %}
+                                        </li>
+                                       {% endrecursetree %} 
+                                      
+                                    </ul>
+                                </div>
+                            </div>
+                            <!--Category Menu End-->
+                        </div>
+                        <!-- Category Menu Area End Here -->
+                        <!-- Begin Slider Area -->
+                        <div class="col-lg-9">
+                            <div class="slider-area pt-sm-30 pt-xs-30">
+                                <div class="slider-active owl-carousel">
+                                    <!-- Begin Single Slide Area -->
+                                    {% for p in sliding_images %}
+                                    	
+                                    
+                                    <div class="single-slide align-center-left animation-style-02 bg-4">
+                                    	<img src="{{p.ImageUrl}}" alt="">
+                                        <div class="slider-progress"></div>
+                                        <div class="slider-content">
+                                            <h5>Sale Offer <span>-20% Off</span> This Week</h5>
+                                            <h2>{{p.title}}
+                                        </h2>
+                                            <h3>Starting at <span>${{p.new_price}}</span></h3>
+                                            <div class="default-btn slide-btn">
+                                                <a class="links" href="shop-left-sidebar.html">Shopping Now</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                    <!-- Single Slide Area End Here -->
+                                    <!-- Begin Single Slide Area -->
+                         
+                                    <!-- Single Slide Area End Here -->
+                                    <!-- Begin Single Slide Area -->
+                        
+                                    <!-- Single Slide Area End Here -->
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Slider Area End Here -->
+                    </div>
+                </div>
+            </div>

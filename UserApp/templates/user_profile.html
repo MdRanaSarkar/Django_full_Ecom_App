@@ -1,0 +1,144 @@
+  
+  {%extends 'index.html'%}
+
+{%load static%}
+
+
+
+    {% block titlee %}
+       single product
+                
+     {% endblock titlee %}
+
+
+
+     {% block description %}
+     {{setting.description}}
+            
+        {% endblock description %}
+
+
+        {% block keyword %}
+            
+        {% endblock keyword %}
+
+
+
+            {% block header %}
+                {% include "header.html" %}
+            {% endblock header %}
+   
+
+             {% block another_content %}
+
+
+<div id="breadcrum">
+	<div class="container">
+		<div >
+			<ul class="breadcrumb">
+				<li> <a href="">Home</a></li> 
+				>>
+				<li class="active">User Profile</li>
+			</ul>
+			
+		</div>
+		
+	</div>
+	
+</div>
+
+
+
+<div class="section">
+<div class="container">
+	<!--
+	{%if messages %}
+
+		   {% for message in messages %}
+		      <div class="alert alert-{{ message.tags }}" role="alert">
+		      	{{message}}
+		      </div>
+		    {% endfor %}
+	{% endif %}
+	-->
+	<!--start from here-->
+	<div class="row align-items-center">
+        <div class="col-md-3">
+       <div class="billing-details">
+            <div class="section-title">
+                <h3 class="titl">User Panel</h3>
+            </div>
+            <div class="aside">
+                        <ul class="list-links">
+                            <li><a href="">User Profile</a></li>
+                            <li><a href="">My Orders</a></li>
+                            <li><a href="">My Order Product</a></li>
+                            <li><a href="">My Comments</a></li>
+                            <li><a href="">My Favorits</a></li>
+                            <li><a href="">My Products</a></li>
+                            <li><a href="">Logout</a></li>
+                        </ul>
+            </div>
+        </div>
+       </div>
+
+    <div class="col-md-9">
+                    <div class="billing-details">
+                        <div class="section-title">
+                            <h3 class="title">User Profile Inf.</h3>
+                        </div>
+                    </div>
+                     <table class="shopping-cart-table table">
+                        <tr>
+                            <th class="text-left">
+                                <a href="" class="primary-btn">Update Profile</a>
+                                <a href="/user/password" class="primary-btn">Change Password</a>
+                            </th>
+                            <td><img src="{{ profile.imageUrl}}" style="border-radius:10px; height: 100px;width:100px; "></td>
+                        </tr>
+                        <tr>
+                            <th class="text-left">Name Surname :</th>
+                            <td class="text-left">{{ user.username}} {{ user.last_name}} </td>
+                        </tr>
+                        <tr>
+                            <th class="text-left">Email</th>
+                            <td class="text-left">{{ profile.user.email}}</td>
+                        </tr>
+                        <tr>
+                            <th class="text-left">Phone</th>
+                            <td class="text-left">{{ profile.phone}}</td>
+                        </tr>
+                        <tr>
+                            <th class="text-left">Addres</th>
+                            <td class="text-left">{{ profile.address}}</td>
+                        </tr>
+                        <tr>
+                            <th class="text-left">City</th>
+                            <td class="text-left">{{ profile.city}}</td>
+                        </tr>
+                        <tr>
+                            <th class="text-left">Country</th>
+                            <td class="text-left">{{ profile.country}}</td>
+                        </tr>
+
+                    </table>
+                </div>
+	</div>
+
+	<!--end from here-->
+
+</div>	
+</div>
+
+
+
+             {% endblock another_content %}
+
+
+
+
+                    {% block footer %}
+
+            {% include "footer.html" %}
+                
+            {% endblock footer %}

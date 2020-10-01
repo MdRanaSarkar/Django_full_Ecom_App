@@ -1,0 +1,108 @@
+  
+  {%extends 'index.html'%}
+  {% load crispy_forms_tags %}
+{%load static%}
+
+
+
+    {% block titlee %}
+       single product
+                
+     {% endblock titlee %}
+
+
+
+     {% block description %}
+     {{setting.description}}
+            
+        {% endblock description %}
+
+
+        {% block keyword %}
+            
+        {% endblock keyword %}
+
+
+
+            {% block header %}
+                {% include "header.html" %}
+            {% endblock header %}
+   
+
+             {% block another_content %}
+
+
+
+
+
+  <div class="breadcrumb-area">
+                <div class="container">
+                    <div class="breadcrumb-content">
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li class="active">Login Register</li>
+                        </ul>
+                    </div>
+                        <div>
+    {%if messages %} {% for message in messages %}
+    <div class="alert alert-{{ message.tags }}" role="alert">
+        {{message}}
+    </div>
+    {% endfor %} {% endif %}
+</div>
+                </div>
+            </div>
+            <!-- Li's Breadcrumb Area End Here -->
+            <!-- Begin Login Content Area -->
+            <div class="page-section mb-60">
+                <div class="container">
+                    <div class="row">
+                   
+                        <div class="col-sm-12 col-md-12 col-lg-6 col-xs-12">
+                            <form action="{%url 'home'%}" method="POST">
+                                {% csrf_token %}
+                                <div class="login-form">
+                                    <h4 class="login-title">Register</h4>
+                                    <div class="row">
+                                          <div class="col-md-12 mb-20">
+                                          {{ form.username|as_crispy_field }}
+                                        </div>
+                                        <div class="col-md-6 col-12 mb-20">
+                                         {{ form.first_name|as_crispy_field }}
+                                        </div>
+                                        <div class="col-md-6 col-12 mb-20">
+                                          {{ form.last_name|as_crispy_field }}
+                                        </div>
+                                        <div class="col-md-12 mb-20">
+                                             {{ form.email|as_crispy_field }}
+                                        </div>
+                                        <div class="col-md-6 mb-20">
+                                            {{ form.password1|as_crispy_field }}
+                                        </div>
+                                        <div class="col-md-6 mb-20">
+                                          {{ form.password2|as_crispy_field }}
+                                        </div>
+                                        <div class="col-12">
+                                            <button class="register-button mt-0">Register</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Login Content Area End Here -->
+
+
+
+             {% endblock another_content %}
+
+
+
+
+                    {% block footer %}
+
+            {% include "footer.html" %}
+                
+            {% endblock footer %}

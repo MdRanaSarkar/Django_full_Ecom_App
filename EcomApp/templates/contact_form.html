@@ -1,0 +1,127 @@
+      {%extends 'index.html'%}
+{%load static%}
+{% load crispy_forms_tags %}
+
+    {% block titlee %}
+       single product
+                
+     {% endblock titlee %}
+
+
+
+     {% block description %}
+     {{setting.description}}
+            
+        {% endblock description %}
+
+
+        {% block keyword %}
+            
+        {% endblock keyword %}
+
+
+
+            {% block header %}
+                {% include "header.html" %}
+            {% endblock header %}
+
+
+             {% block another_content %}
+
+
+
+
+
+    <div class="breadcrumb-area">
+                <div class="container">
+                    <div class="breadcrumb-content">
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li class="active">Contact</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- Li's Breadcrumb Area End Here -->     
+            <!-- Begin Contact Main Page Area -->
+            <div class="contact-main-page mt-60 mb-40 mb-md-40 mb-sm-40 mb-xs-40">
+                <div class="container mb-60">
+                    <div id="google-map"></div>
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-5 offset-lg-1 col-md-12 order-1 order-lg-2">
+                            <div class="contact-page-side-content">
+                                <h3 class="contact-page-title">Contact Us</h3>
+                                <p class="contact-page-message mb-25">
+                                    {{setting.description}}.</p>
+                                <div class="single-contact-block">
+                                    <h4><i class="fa fa-fax"></i> Address</h4>
+                                    <p>{{setting.address}}</p>
+                                </div>
+                                <div class="single-contact-block">
+                                    <h4><i class="fa fa-phone"></i> Phone</h4>
+                                    <p>Mobile: {{setting.phone}}</p>
+                              
+                                </div>
+                                <div class="single-contact-block last-child">
+                                    <h4><i class="fa fa-envelope-o"></i> Email</h4>
+                                    <p>{{setting.email}}</p>
+                               
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12 order-2 order-lg-1">
+                            <div class="contact-form-content pt-sm-55 pt-xs-55">
+                                <h3 class="contact-page-title">Tell Us Your Message</h3>
+                             
+
+                                <div class="contact-form">
+                                    <form  id="contact-form" action="{%url 'contact_dat'%}" method="post">
+                                        {% csrf_token %}
+                                        <div class="form-group">
+                                          {{form.name|as_crispy_field}}
+                                        </div>
+                                        <div class="form-group">
+                                         {{form.email|as_crispy_field}}
+                                        </div>
+                                        <div class="form-group">
+                                           {{form.subject|as_crispy_field}}
+                                        </div>
+                                        <div class="form-group mb-30">
+                                           {{form.message|as_crispy_field}}
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="submit" value="submit" id="submit" class="li-btn-3" name="submit">send</button>
+                                        </div>
+                                    </form>
+                                </div>
+    {% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+        {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
+        {{ message }}
+    </li>
+    {% endfor %}
+</ul>
+{% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+              {% endblock another_content %}
+
+
+
+
+                    {% block footer %}
+
+            {% include "footer.html" %}
+                
+            {% endblock footer %}

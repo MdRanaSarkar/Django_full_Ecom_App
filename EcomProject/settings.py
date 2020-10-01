@@ -47,8 +47,14 @@ INSTALLED_APPS = [
     'ckeditor_uploader',
     'EcomApp',
     'Product',
+    'OrderApp',
+    'UserApp',
+    'mptt',
+    'crispy_forms',
+
 
 ]
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
