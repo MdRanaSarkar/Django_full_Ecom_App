@@ -1,0 +1,83 @@
+{%extends 'index.html'%}
+
+{%load static%}
+
+{% load crispy_forms_tags %}
+
+{% block titlee %}
+single product
+
+{% endblock titlee %}
+
+
+
+{% block description %}
+{{setting.description}}
+
+{% endblock description %}
+
+
+{% block keyword %}
+
+{% endblock keyword %}
+
+
+
+{% block header %}
+{% include "header.html" %}
+{% endblock header %}
+
+
+{% block another_content %}
+
+<div id="breadcrum">
+    <div class="container">
+        <div>
+            <ul class="breadcrumb">
+                <li> <a href="{%url 'home'%}">Home</a></li>
+                >>
+                <li class="active">Completed Order</li>
+            </ul>
+
+        </div>
+
+    </div>
+
+</div>
+<div class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="order-summary clearfix">
+                    <div class="section-title">
+                        <h3 class="title">Order Complated</h3>
+                    </div>
+                  
+                    <h2>Dear {{ user.username }} {{  user.last_name }}</h2>
+                    <h3>Your order is completed</h3>
+                    <h3>Order Code : {{ ordercode }}</h3>
+                    <h3>Thank You</h3>
+                    <hr>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+
+{% endblock another_content %}
+
+
+
+
+{% block footer %}
+
+{% include "footer.html" %}
+
+{% endblock footer %}

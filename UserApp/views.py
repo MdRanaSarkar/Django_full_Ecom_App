@@ -1,12 +1,13 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import logout, authenticate, login
+from django.contrib.auth import logout, authenticate, login,update_session_auth_hash
 from Product.models import Category, Product, Images
 from django.contrib import messages
 from EcomApp.models import Setting
-from UserApp.forms import SignUpForm
+from UserApp.forms import SignUpForm,UserUpdateForm,ProfileUpdateForm
 from UserApp.models import UserProfile
+from django.contrib.auth.decorators import login_required
 # Create your views here.
-
+from django.contrib.auth.forms import PasswordChangeForm
 
 def user_login(request):
     if request.method == 'POST':
@@ -73,3 +74,62 @@ def userprofile(request):
                'profile':profile}
     return render(request,'user_profile.html',context)
 
+
+
+
+
+
+@login_required(login_url='/user/login')  # Check login
+def user_update(request):
+    if request.method == 'POST':
+        # request.user is user  data
+        user_form = UserUpdateForm(request.POST, instance=request.user)
+        profile_form = ProfileUpdateForm(
+            request.POST, request.FILES, instance=request.user.userprofile)
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            messages.success(request, 'Your account has been updated!')
+            return redirect('userprofile')
+    else:
+       # category = Category.objects.all()
+        user_form = UserUpdateForm(instance=request.user)
+        # "userprofile" model -> OneToOneField relatinon with user
+        profile_form = ProfileUpdateForm(instance=request.user)
+        category = Category.objects.all()
+        setting = Setting.objects.get(id=1)
+        context = {
+            # 'category': category,
+            'user_form': user_form,
+            'profile_form': profile_form,
+            'category': category,
+               'setting': setting,
+        }
+        return render(request, 'userupdate.html', context)
+    
+
+
+
+@login_required(login_url='/user/login')  # Check login
+def user_password(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)  # Important!
+            messages.success(
+                request, 'Your password was successfully updated!')
+            return redirect('userprofile')
+        else:
+            messages.error(
+                request, 'Please correct the error below.<br>' + str(form.errors))
+            return redirect('user_password')
+    else:
+        category = Category.objects.all()
+        setting = Setting.objects.get(id=1)
+        form = PasswordChangeForm(request.user)
+        return render(request, 'userpasswordupdate.html', {'form': form,
+                                                              'category': category,
+                                                              'setting': setting,
+                                                         
+                                                           })

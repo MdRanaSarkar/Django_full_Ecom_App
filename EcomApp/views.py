@@ -1,41 +1,45 @@
-from django.shortcuts import render,HttpResponse,redirect,HttpResponseRedirect
-from EcomApp.models import Setting,ContactMessage,ContactForm
+from django.shortcuts import render, HttpResponse, redirect, HttpResponseRedirect
+from EcomApp.models import Setting, ContactMessage, ContactForm
 from django.contrib import messages
 from Product.models import Product, Images, Category
 from EcomApp.forms import SearchForm
 # Create your views here.
 from OrderApp.models import ShopCart
 
+
 def Home(request):
-    current_user=request.user
-    cart_product=ShopCart.objects.filter(user_id=current_user.id)
-    total_amount=0
+    current_user = request.user
+    cart_product = ShopCart.objects.filter(user_id=current_user.id)
+    total_amount = 0
     for p in cart_product:
-        total_amount+=p.product.new_price*p.quantity
+        total_amount += p.product.new_price*p.quantity
     category = Category.objects.all()
     setting = Setting.objects.get(id=1)
     sliding_images = Product.objects.all().order_by('id')[:2]
     latest_products = Product.objects.all().order_by('-id')
     products = Product.objects.all()
+    total_quan = 0
+    for p in cart_product:
+        total_quan += p.quantity
+
     context = {'category': category,
                'setting': setting,
                'sliding_images': sliding_images,
                'latest_products': latest_products,
-               'products': products, 
-               'cart_product':cart_product,
-              'total_amount':total_amount}
+               'products': products,
+               'cart_product': cart_product,
+               'total_amount': total_amount,
+               'total_quan': total_quan
+               }
     return render(request, 'home.html', context)
-
 
 
 def About(request):
     category = Category.objects.all()
     setting = Setting.objects.get(id=1)
     context = {'setting': setting,
-    'category': category,}
+               'category': category, }
     return render(request, 'about.html', context)
-
-
 
 
 def contact(request):
@@ -55,13 +59,11 @@ def contact(request):
 
     setting = Setting.objects.get(pk=1)
     form = ContactForm
-    category=Category.objects.all()
+    category = Category.objects.all()
     context = {
-        'setting': setting, 'form': form   ,'category':category,
+        'setting': setting, 'form': form, 'category': category,
     }
     return render(request, 'contact_form.html', context)
-        
-
 
 
 def SearchView(request):
@@ -83,18 +85,10 @@ def SearchView(request):
                 'query': query,
                 'product_cat': products,
                 'sliding_images': sliding_images,
-                'setting': setting, 
+                'setting': setting,
             }
             return render(request, 'category_products.html', context)
     return HttpResponseRedirect('category_product')
-
-
- 
-
-
-
-
-
 
 
 def product_single(request, id):
@@ -105,7 +99,7 @@ def product_single(request, id):
     products = Product.objects.all().order_by('id')[:4]
 
     context = {
-    'category': category,
+        'category': category,
         'setting': setting,
         'single_product': single_product,
         'images': images,
@@ -114,18 +108,15 @@ def product_single(request, id):
     return render(request, 'product-single.html', context)
 
 
-
-
-def category_product(request,id,slug):
-	category = Category.objects.all()
-	setting = Setting.objects.get(id=1)
-	sliding_images = Product.objects.all().order_by('id')[:2]
-	prouct_cat=Product.objects.filter(category_id=id)
-	context={
-	'category': category,
-     'setting': setting,
-	'product_cat':prouct_cat,
-	'sliding_images': sliding_images,
-	}
-	return render(request,'category_products.html',context)
-
+def category_product(request, id, slug):
+    category = Category.objects.all()
+    setting = Setting.objects.get(id=1)
+    sliding_images = Product.objects.all().order_by('id')[:2]
+    prouct_cat = Product.objects.filter(category_id=id)
+    context = {
+        'category': category,
+        'setting': setting,
+        'product_cat': prouct_cat,
+        'sliding_images': sliding_images,
+    }
+    return render(request, 'category_products.html', context)
