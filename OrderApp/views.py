@@ -157,3 +157,33 @@ def OrderCart(request):
         'total_amount': total_amount
     }
     return render(request, 'order_form.html', context)
+
+
+def Order_showing(request):
+    category = Category.objects.all()
+    setting = Setting.objects.get(id=1)
+    current_user = request.user
+    orders = Order.objects.filter(user_id=current_user.id)
+    context = {
+        'category': category,
+        'setting': setting,
+        'orders': orders
+
+    }
+
+    return render(request, 'user_order_showing.html', context)
+
+
+def Order_Product_showing(request):
+    category = Category.objects.all()
+    setting = Setting.objects.get(id=1)
+    current_user = request.user
+    order_product = OderProduct.objects.filter(user_id=current_user.id)
+    context = {
+        'category': category,
+        'setting': setting,
+        'order_product': order_product
+
+    }
+
+    return render(request, 'OrderProducList.html', context)

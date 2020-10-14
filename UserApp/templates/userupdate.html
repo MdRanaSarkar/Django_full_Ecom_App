@@ -1,127 +1,109 @@
  {%extends 'index.html'%}
 
-{%load static%}
+ {%load static%}
 
-{% load crispy_forms_tags %}
+ {% load crispy_forms_tags %}
 
-    {% block titlee %}
-       single product
-                
-     {% endblock titlee %}
+ {% block titlee %}
+ single product
 
-
-
-     {% block description %}
-     {{setting.description}}
-            
-        {% endblock description %}
-
-
-        {% block keyword %}
-            
-        {% endblock keyword %}
+ {% endblock titlee %}
 
 
 
-            {% block header %}
-                {% include "header.html" %}
-            {% endblock header %}
-   
+ {% block description %}
+ {{setting.description}}
 
-             {% block another_content %}
+ {% endblock description %}
 
 
+ {% block keyword %}
 
-
-<div id="breadcrum">
-    <div class="container">
-        <div >
-            <ul class="breadcrumb">
-                <li> <a href="{%url 'home'%}">Home</a></li> 
-                >>
-                <li class="active">User Update</li>
-            </ul>
-            
-        </div>
-        
-    </div>
-    
-</div>
-
-    <!-- /BREADCRUMB -->
-
-    <!-- section -->
-    <div class="section">
-        <!-- container -->
-        <div class="container">
-            <!-- row -->
-    <div class="row align-items-center">
-        <div class="col-md-1"></div>
-        <div class="col-md-3">
-        <div class="billing-details">
-    <div class="section-title">
-        <h3 class="title">User Panel</h3>
-    </div>
-    <div class="aside">
-                <ul class="list-links">
-                    <li><a href="/user">User Profile</a></li>
-                    <li><a href="/user/orders">My Orders</a></li>
-                    <li><a href="/user/orders_product">My Order Product</a></li>
-                    <li><a href="/user/comments">My Comments</a></li>
-                    <li><a href="/user/favorits">My Favorits</a></li>
-                    <li><a href="/user/products">My Products</a></li>
-                    <li><a href="/logout">Logout</a></li>
-                </ul>
-    </div>
-    </div>
-    </div>
-
-                <div class="col-md-8">
-                    <div class="billing-details">
-                        <div>
-                            
-                    {% if messages %}
-                    {% for message in messages %}
-                        <div style="color: #d43f3a; font-size: medium">
-                            {{ message|safe }}
-                        </div>
-                    {% endfor %}
-                {% endif %}
-                        </div>
-                        <div class="section-title">
-                            <h3 class="title">User Profile Update</h3>
-                        </div>
-                    </div>
-
-                    <form method="POST" enctype = "multipart/form-data">
-                        {% csrf_token %}
-                        <fieldset class="form-group">
-                            {{ user_form.as_p  }}
-                            {{ profile_form.as_p  }}
-                        </fieldset>
-                        <div class="form-group">
-                            <button class="primary-btn" type="submit">Update</button>
-                        </div>
-                    </form>
-
-                </div>
-            </div>
-            <!-- /row -->
-        </div>
-        <!-- /container -->
-    </div>
-    <!-- /section -->
+ {% endblock keyword %}
 
 
 
-    
-             {% endblock another_content %}
+ {% block header %}
+ {% include "header.html" %}
+ {% endblock header %}
+
+
+ {% block another_content %}
 
 
 
 
-                    {% block footer %}
+ <div id="breadcrum">
+     <div class="container">
+         <div>
+             <ul class="breadcrumb">
+                 <li> <a href="{%url 'home'%}">Home</a></li>
+                 >>
+                 <li class="active">User Update</li>
+             </ul>
 
-            {% include "footer.html" %}
-                
-            {% endblock footer %}
+         </div>
+
+     </div>
+
+ </div>
+
+ <!-- /BREADCRUMB -->
+
+
+ <!-- row -->
+ <div class="page-section mb-60">
+     <div class="container">
+         <div class="row">
+             <div class="col-sm-12 col-md-12 col-xs-12 col-lg-3 mb-30">
+                 <h1 class="font-weight-bold">User Panel</h1>
+                 {% include 'user_panel.html' %}
+             </div>
+
+             <div class="col-sm-12 col-md-12 col-lg-9 col-xs-12">
+                 <div class="billing-details">
+                     <div>
+
+                         {% if messages %}
+                         {% for message in messages %}
+                         <div style="color: #d43f3a; font-size: medium">
+                             {{ message|safe }}
+                         </div>
+                         {% endfor %}
+                         {% endif %}
+                     </div>
+                     <h1 class="text-center font-weight-bold">Update your Information</h1>
+                 </div>
+
+                 <form method="POST" enctype="multipart/form-data">
+                     {% csrf_token %}
+                     <fieldset class="form-group">
+                         {{ user_form.as_p  }}
+                         {{ profile_form.as_p  }}
+                     </fieldset>
+                     <div class="form-group">
+                         <button class="primary-btn" type="submit">Update</button>
+                     </div>
+                 </form>
+
+             </div>
+         </div>
+         <!-- /row -->
+     </div>
+     <!-- /container -->
+ </div>
+ <!-- /section -->
+
+
+
+
+ {% endblock another_content %}
+
+
+
+
+ {% block footer %}
+
+ {% include "footer.html" %}
+
+ {% endblock footer %}

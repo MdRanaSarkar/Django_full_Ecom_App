@@ -23,6 +23,7 @@ urlpatterns = [
     path('', include('EcomApp.urls')),
     path('order/', include('OrderApp.urls')),
     path('user/', include('UserApp.urls')),
+    path('product/', include('Product.urls')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
 ]
 

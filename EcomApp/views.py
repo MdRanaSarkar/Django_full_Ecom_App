@@ -1,7 +1,7 @@
 from django.shortcuts import render, HttpResponse, redirect, HttpResponseRedirect
 from EcomApp.models import Setting, ContactMessage, ContactForm
 from django.contrib import messages
-from Product.models import Product, Images, Category
+from Product.models import Product, Images, Category, Comment
 from EcomApp.forms import SearchForm
 # Create your views here.
 from OrderApp.models import ShopCart
@@ -97,13 +97,15 @@ def product_single(request, id):
     single_product = Product.objects.get(id=id)
     images = Images.objects.filter(product_id=id)
     products = Product.objects.all().order_by('id')[:4]
+    comment_show = Comment.objects.filter(product_id=id, status='True')
 
     context = {
         'category': category,
         'setting': setting,
         'single_product': single_product,
         'images': images,
-        'products': products
+        'products': products,
+        'comment_show': comment_show
     }
     return render(request, 'product-single.html', context)
 

@@ -5,6 +5,12 @@ from ckeditor_uploader.fields import RichTextUploadingField
 # Create your models here.
 from mptt.models import MPTTModel, TreeForeignKey
 
+from django.contrib.auth.models import User
+
+from django.forms import ModelForm
+from django.db.models import Count, Sum, Avg
+
+
 class Category(MPTTModel):
     status = (
         ('True', 'True'),
@@ -21,7 +27,6 @@ class Category(MPTTModel):
     slug = models.SlugField(null=True, unique=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-
 
     class MPTTMeta:
         order_insertion_by = ['title']
@@ -56,13 +61,28 @@ class Product(models.Model):
             return self.image.url
         else:
             return ""
+
     def image_tag(self):
         return mark_safe('<img src="{}" heights="70" width="60" />'.format(self.image.url))
     image_tag.short_description = 'Image'
 
-  
+    def average_review(self):
+        reviews = Comment.objects.filter(
+            product=self, status=True).aggregate(average=Avg('rate'))
+        avg = 0
+        if reviews['average'] is not None:
+            avg = float(reviews['average'])
+            return avg
+        else:
+            return avg
 
-
+    def total_review(self):
+        reviews = Comment.objects.filter(
+            product=self, status=True).aggregate(count=Count('id'))
+        cnt = 0
+        if reviews['count'] is not None:
+            cnt = (reviews['count'])
+            return cnt
 
 
 class Images(models.Model):
@@ -72,3 +92,30 @@ class Images(models.Model):
 
     def __str(self):
         return self.title
+
+
+class Comment(models.Model):
+    STATUS = (
+        ('New', 'New'),
+        ('True', 'True'),
+        ('False', 'False'),
+
+    )
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    subject = models.CharField(max_length=200, blank=True)
+    comment = models.CharField(max_length=500, blank=True)
+    rate = models.IntegerField(default=1)
+    ip = models.CharField(max_length=100, blank=True)
+    status = models.CharField(max_length=40, choices=STATUS, default='New')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.subject
+
+
+class CommenttForm(ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['subject', 'comment', 'rate']

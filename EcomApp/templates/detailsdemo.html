@@ -91,11 +91,11 @@
                          <span class="product-details-ref">Reference: demo_15</span>
                          <div class="rating-box pt-20">
                              <ul class="rating rating-with-review-item">
-                                 <li><i class="fa fa-star{%if single_product.average_review < 1%}-o{%endif%}"></i></li>
-                                 <li><i class="fa fa-star{%if single_product.average_review < 2%}-o{%endif%}"></i></li>
-                                 <li><i class="fa fa-star{%if single_product.average_review < 3%}-o{%endif%}"></i></li>
-                                 <li><i class="fa fa-star{%if single_product.average_review < 4%}-o{%endif%}"></i></li>
-                                 <li><i class="fa fa-star{%if single_product.average_review < 5%}-o{%endif%}"></i></li>
+                                 <li><i class="fa fa-star-o"></i></li>
+                                 <li><i class="fa fa-star-o"></i></li>
+                                 <li><i class="fa fa-star-o"></i></li>
+                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
                                  <li class="review-item"><a href="#">Read Review</a></li>
                                  <li class="review-item"><a href="#">Write Review</a></li>
                              </ul>
@@ -209,31 +209,24 @@
              <div id="reviews" class="tab-pane" role="tabpanel">
                  <div class="product-reviews">
                      <div class="product-details-comment-block">
-
-                         {% for p in  comment_show %}
-
-
-
                          <div class="comment-review">
                              <span>Grade</span>
                              <ul class="rating">
-                                 <li><i class="fa fa-star{%if p.rate < 1%}-o{%endif%}"></i></li>
-                                 <li><i class="fa fa-star{%if p.rate < 2%}-o{%endif%}"></i></li>
-                                 <li><i class="fa fa-star{%if p.rate < 3%}-o{%endif%}"></i></li>
-                                 <li><i class="fa fa-star{%if p.rate < 4%}-o{%endif%}"></i></li>
-
-                                 <li><i class="fa fa-star{%if p.rate < 5%}-o{%endif%}"></i></li>
+                                 <li><i class="fa fa-star-o"></i></li>
+                                 <li><i class="fa fa-star-o"></i></li>
+                                 <li><i class="fa fa-star-o"></i></li>
+                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                 <li class="no-star"><i class="fa fa-star-o"></i></li>
                              </ul>
                          </div>
                          <div class="comment-author-infos pt-25">
-                             <span>{{p.user.username}}</span>
-                             <em>{{p.created_at}}</em>
+                             <span>HTML 5</span>
+                             <em>01-12-18</em>
                          </div>
                          <div class="comment-details">
-                             <h4 class="title-block">{{p.subject}}</h4>
-                             <p>{{p.comment}}</p>
+                             <h4 class="title-block">Demo</h4>
+                             <p>Plaza</p>
                          </div>
-                         {% endfor %}
                          <div class="review-btn">
                              <a class="review-links" href="#" data-toggle="modal" data-target="#mymodal">Write Your
                                  Review!</a>
@@ -268,57 +261,47 @@
                                                      <div class="feedback-area">
                                                          <div class="feedback">
                                                              <h3 class="feedback-title">Our Feedback</h3>
-                                                             <form action="{%url 'comment_add' id=single_product.id%}"
-                                                                 method="POST">
-                                                                 {% csrf_token %}
+                                                             <form action="#">
+                                                                 <p class="your-opinion">
+                                                                     <label>Your Rating</label>
+                                                                     <span>
+                                                                         <select class="star-rating">
+                                                                             <option value="1">1</option>
+                                                                             <option value="2">2</option>
+                                                                             <option value="3">3</option>
+                                                                             <option value="4">4</option>
+                                                                             <option value="5">5</option>
+                                                                         </select>
+                                                                     </span>
+                                                                 </p>
+                                                                 <p class="feedback-form">
+                                                                     <label for="feedback">Your Review</label>
+                                                                     <textarea id="feedback" name="comment" cols="45"
+                                                                         rows="8" aria-required="true"></textarea>
+                                                                 </p>
                                                                  <div class="feedback-input">
-                                                                     <p class="your-opinion">
-                                                                         <label>Your Rating</label>
-                                                                         <span>
-                                                                             <select class="star-rating" name="rate">
-                                                                                 <option value="1" name="rate">1
-                                                                                 </option>
-                                                                                 <option value="2" name="rate">2
-                                                                                 </option>
-                                                                                 <option value="3" name="rate">3
-                                                                                 </option>
-                                                                                 <option value="4" name="rate">4
-                                                                                 </option>
-                                                                                 <option value="5" name="rate">5
-                                                                                 </option>
-                                                                             </select>
-                                                                         </span>
-                                                                     </p>
                                                                      <p class="feedback-form-author">
-                                                                         <label for="author">Subject<span
+                                                                         <label for="author">Name<span
                                                                                  class="required">*</span>
                                                                          </label>
-                                                                         <input id="author" name="subject" value=""
+                                                                         <input id="author" name="author" value=""
                                                                              size="30" aria-required="true" type="text">
                                                                      </p>
-                                                                     <p class="feedback-form">
-                                                                         <label for="feedback">Your Review</label>
-                                                                         <textarea id="feedback" name="comment"
-                                                                             cols="45" rows="8"
-                                                                             aria-required="true"></textarea>
+                                                                     <p
+                                                                         class="feedback-form-author feedback-form-email">
+                                                                         <label for="email">Email<span
+                                                                                 class="required">*</span>
+                                                                         </label>
+                                                                         <input id="email" name="email" value=""
+                                                                             size="30" aria-required="true" type="text">
+                                                                         <span class="required"><sub>*</sub> Required
+                                                                             fields</span>
                                                                      </p>
-
                                                                      <div class="feedback-btn pb-15">
                                                                          <a href="#" class="close" data-dismiss="modal"
                                                                              aria-label="Close">Close</a>
-
+                                                                         <a href="#">Submit</a>
                                                                      </div>
-
-                                                                     {% if user.id is not Nones %}
-
-
-
-                                                                     <input type="submit" class="btn btn-secondary"
-                                                                         value="submit">
-                                                                     {% else %}
-                                                                     <h3>You should login first</h3>
-                                                                     {% endif %}
-
                                                                  </div>
                                                              </form>
                                                          </div>
