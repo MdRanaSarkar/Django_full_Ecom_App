@@ -1,0 +1,130 @@
+ {%extends 'index.html'%}
+
+ {%load static%}
+
+ {% load crispy_forms_tags %}
+
+ {% block titlee %}
+Usercomment
+
+ {% endblock titlee %}
+
+
+
+ {% block description %}
+ {{setting.description}}
+
+ {% endblock description %}
+
+
+ {% block keyword %}
+
+ {% endblock keyword %}
+
+
+
+ {% block header %}
+ {% include "header.html" %}
+ {% endblock header %}
+
+
+ {% block another_content %}
+
+
+
+  <div id="breadcrum">
+      <div class="container">
+          <div>
+              <ul class="breadcrumb">
+                  <li> <a href="">Home</a></li>
+                  >>
+                  <li class="active">User Comment</li>
+              </ul>
+
+          </div>
+
+      </div>
+
+  </div>
+
+
+
+  <div class="section">
+      <div class="container">
+
+          {%if messages %}
+
+          {% for message in messages %}
+          <div class="alert alert-{{ message.tags }}" role="alert">
+              {{message}}
+          </div>
+          {% endfor %}
+          {% endif %}
+
+          <!--start from here-->
+          <div class="page-section mb-60">
+              <div class="container">
+                  <div class="row">
+                      <div class="col-sm-12 col-md-12 col-xs-12 col-lg-3 mb-30">
+                          <h1 class="font-weight-bold">User Panel</h1>
+                          {% include 'user_panel.html' %}
+                      </div>
+
+                      <div class="col-sm-12 col-md-12 col-lg-9 col-xs-12">
+                            <h1 class="text-center font-weight-bold">User Comments</h1>
+                      <table class="shopping-cart-table table">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">Item Image</th>
+                                        <th class="text-center">Product Name </th>
+                                        <th class="text-center">Comment Title</th>
+                                        <th class="text-center">Comment</th>
+                                        <th class="text-center"> Comment Status</th>
+                                        <th class="text-center">Comment Date</th>
+                                        <th class="text-center">Action</th>
+                                     
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {%for p in comment%}
+                                    <tr>
+                                        <td class="thumb text-center"><a href=""><img src="{{p.product.ImageUrl}}" alt="" height="30px"></a></td>
+                                        <td class="text-center"><a href="">{{p.product.title}}</a></td>
+                                        <td class="price text-center">{{p.subject}}</td>
+                                        <td class="status text-center">{{p.comment}}</td>
+                                        <td class="created text-center">{{p.status}}</td>
+                                        <td class="created text-center">{{p.created_at}}</td>
+                                        <td class="pull-right"><button class="btn btn-danger">
+                                        <a href="{%url 'comment_delete' id=p.id%}" onclick="return confirm('Are You sure delete your comment?')">
+										Delete
+										</a>
+                                        </button></td>
+                                    
+
+                                    
+                                    </tr>
+                                    {%endfor%}
+                                    
+                                </tbody>
+                            </table>
+
+                     </div>
+                  </div>
+
+                  <!--end from here-->
+
+              </div>
+          </div>
+
+ 
+ {% endblock another_content %}
+
+
+
+
+ {% block footer %}
+
+ {% include "footer.html" %}
+
+ {% endblock footer %}

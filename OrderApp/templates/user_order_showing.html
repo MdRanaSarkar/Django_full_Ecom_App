@@ -76,7 +76,7 @@ single product
 
                                     <td class="li-product-stock-status"><span class="in-stock">{{p.status}}</span></td>
                                     <td class="li-product-price"><span class="amount">{{p.adminnote}}</span></td>
-                                    <td class="li-product-add-cart"><a href="#">Details</a></td>
+                                    <td class="li-product-add-cart"><a href="{%url 'user_oder_details' id=p.id%}">Details</a></td>
                                 </tr>
                                 {% endfor %}
 

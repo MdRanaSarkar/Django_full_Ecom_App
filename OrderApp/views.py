@@ -174,6 +174,23 @@ def Order_showing(request):
     return render(request, 'user_order_showing.html', context)
 
 
+@login_required(login_url='/user/login')
+def user_oder_details(request, id):
+    category = Category.objects.all()
+    setting = Setting.objects.get(id=1)
+    current_user = request.user
+    order = Order.objects.get(user_id=current_user.id, id=id)
+    order_products = OderProduct.objects.filter(order_id=id)
+    context = {
+
+        'order': order,
+        'order_products': order_products,
+        'category': category,
+        'setting': setting,
+    }
+    return render(request, 'user_order_details.html', context)
+
+
 def Order_Product_showing(request):
     category = Category.objects.all()
     setting = Setting.objects.get(id=1)
@@ -187,3 +204,22 @@ def Order_Product_showing(request):
     }
 
     return render(request, 'OrderProducList.html', context)
+
+
+@login_required(login_url='/user/login')
+def useroderproduct_details(request, id, oid):
+    category = Category.objects.all()
+    setting = Setting.objects.get(id=1)
+    current_user = request.user
+    order = Order.objects.get(user_id=current_user.id, id=oid)
+    order_products = OderProduct.objects.get(user_id=current_user.id, id=id)
+    context = {
+
+        'order': order,
+        'order_products': order_products,
+        'category': category,
+        'setting': setting,
+    }
+    return render(request, 'user_order_pro_details.html', context)
+
+

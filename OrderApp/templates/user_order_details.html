@@ -50,6 +50,38 @@ single product
             </div>
 
             <div class="col-sm-12 col-md-12 col-lg-9 col-xs-12">
+                        <table class="shopping-cart-table table">
+                        <tr>
+                            <th class="text-left">Name Surname</th>
+                            <td class="text-left">{{ order.first_name}} {{ order.last_name}} </td>
+                        </tr>
+                        <tr>
+                            <th class="text-left">Phone</th>
+                            <td class="text-left">{{ order.phone}}</td>
+                        </tr>
+                        <tr>
+                            <th class="text-left">Addres</th>
+                            <td class="text-left">{{ order.address}} {{ order.city}} {{ order.country}} </td>
+                        </tr>
+                        <tr>
+                            <th class="text-left">Status</th>
+                            <td class="text-left">{{ order.status}}</td>
+                        </tr>
+                        <tr>
+                            <th class="text-left">Date: </th>
+                            <td class="text-left">{{ order.created_at}}</td>
+                        </tr>
+                        <tr>
+                            <th class="text-left">Shiping Info: </th>
+                            <td class="text-left">{{ order.adminnote}}</td>
+                        </tr>
+
+
+                    </table>
+            </div>
+        </div>
+
+            <div class="col-sm-12 col-md-12 col-lg-12 col-xs-12">
                 <form action="#">
                     <div class="table-content table-responsive">
                         <table class="table">
@@ -67,7 +99,7 @@ single product
                                 </tr>
                             </thead>
                             <tbody>
-                                {% for p in order_product %}
+                                {% for p in order_products %}
                                 <tr>
 
 
@@ -82,7 +114,7 @@ single product
                                     <td class="li-product-stock-status"><span class="in-stock">{{p.status}}</span>
                                     </td>
 
-                                    <td class="li-product-add-cart"><a href="{%url 'useroderproduct_details' id=p.id oid=p.order_id%}">Details</a></td>
+                                    <td class="li-product-add-cart"><a href="#">Details</a></td>
                                 </tr>
                                 {% endfor %}
 
@@ -91,7 +123,6 @@ single product
                     </div>
                 </form>
             </div>
-        </div>
     </div>
 </div>
 

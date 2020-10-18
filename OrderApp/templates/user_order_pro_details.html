@@ -1,0 +1,97 @@
+{%extends 'index.html'%}
+
+{%load static%}
+
+{% load crispy_forms_tags %}
+
+{% block titlee %}
+single product
+
+{% endblock titlee %}
+
+
+
+{% block description %}
+{{setting.description}}
+
+{% endblock description %}
+
+
+{% block keyword %}
+
+{% endblock keyword %}
+
+
+
+{% block header %}
+{% include "header.html" %}
+{% endblock header %}
+
+
+{% block another_content %}
+<div class="breadcrumb-area">
+    <div class="container">
+        <div class="breadcrumb-content">
+            <ul>
+                <li><a href="{%url 'home'%}">Home</a></li>
+                <li class="active">OrderInfo</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- Li's Breadcrumb Area End Here -->
+<!--Wishlist Area Strat-->
+<div class="page-section mb-60">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-xs-12 col-lg-3 mb-30">
+                <h1 class="font-weight-bold">User Panel</h1>
+                {% include 'user_panel.html' %}
+            </div>
+
+            <div class="col-sm-12 col-md-12 col-lg-9 col-xs-12">
+                        <table class="shopping-cart-table table">
+                        <tr>
+                            <th class="text-left">Name Surname</th>
+                            <td class="text-left">{{ order.first_name}} {{ order.last_name}} </td>
+                        </tr>
+                        <tr>
+                            <th class="text-left">Phone</th>
+                            <td class="text-left">{{ order.phone}}</td>
+                        </tr>
+                        <tr>
+                            <th class="text-left">Addres</th>
+                            <td class="text-left">{{ order.address}} {{ order.city}} {{ order.country}} </td>
+                        </tr>
+                        <tr>
+                            <th class="text-left">Status</th>
+                            <td class="text-left">{{ order.status}}</td>
+                        </tr>
+                        <tr>
+                            <th class="text-left">Date: </th>
+                            <td class="text-left">{{ order.created_at}}</td>
+                        </tr>
+                        <tr>
+                            <th class="text-left">Shiping Info: </th>
+                            <td class="text-left">{{ order_products.amount}}</td>
+                        </tr>
+
+
+                    </table>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+
+
+{% endblock another_content %}
+
+
+{% block footer %}
+
+{% include "footer.html" %}
+
+{% endblock footer %}
