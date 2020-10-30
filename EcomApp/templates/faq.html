@@ -1,0 +1,91 @@
+      {%extends 'index.html'%}
+{%load static%}
+{% load crispy_forms_tags %}
+
+    {% block titlee %}
+       single product
+                
+     {% endblock titlee %}
+
+
+
+     {% block description %}
+     {{setting.description}}
+            
+        {% endblock description %}
+
+
+        {% block keyword %}
+            
+        {% endblock keyword %}
+
+
+
+            {% block header %}
+                {% include "header.html" %}
+            {% endblock header %}
+
+
+             {% block another_content %}
+ <div class="breadcrumb-area">
+                <div class="container">
+                    <div class="breadcrumb-content">
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li class="active">FAQ</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- Li's Breadcrumb Area End Here -->
+            <!-- Begin Frequently Area -->
+            <div class="frequently-area pt-60 pb-50">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="frequently-content">
+                                <div class="frequently-desc">
+                                    <h3>Below are frequently asked questions, you may find the answer for yourself</h3>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec id erat sagittis, faucibus metus malesuada, eleifend turpis. Mauris semper augue id nisl aliquet, a porta lectus mattis. Nulla at tortor augue. In eget enim diam. Donec gravida tortor sem, ac fermentum nibh rutrum sit amet. Nulla convallis mauris vitae congue consequat. Donec interdum nunc purus, vitae vulputate arcu fringilla quis. Vivamus iaculis euismod dui.</p>
+                                </div>
+                            </div>
+                            <!-- Begin Frequently Accordin -->
+                            <div class="frequently-accordion">
+                                <div id="accordion">
+                                    {% for p in faq  %}
+                              
+                                  <div class="card">
+                                    <div class="card-header" id="heading{{p.ordernumber}}">
+                                      <h5 class="mb-0">
+                                        <a class="collapsed" data-toggle="collapse" data-target="#collapse{{p.ordernumber}}" aria-expanded="false" aria-controls="collapse{{p.ordernumber}}">
+                                        {{p.question}}
+                                        </a>
+                                      </h5>
+                                    </div>
+                                    <div id="collapse{{p.ordernumber}}" class="collapse" aria-labelledby="heading{{p.ordernumber}}" data-parent="#accordion">
+                                      <div class="card-body">
+                                    {{p.answer}}
+                                      </div>
+                                    </div>
+                                  </div>
+                                          
+                                    {% endfor %}
+                    
+                                </div>
+                            </div>
+                            <!--Frequently Accordin End Here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+   {% endblock another_content %}
+
+
+
+
+                    {% block footer %}
+
+            {% include "footer.html" %}
+                
+            {% endblock footer %}

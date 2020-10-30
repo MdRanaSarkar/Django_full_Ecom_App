@@ -13,6 +13,8 @@ class ShopCart(models.Model):
 
     def price(self):
         return self.product.new_price
+ 
+
 
     @property
     def amount(self):

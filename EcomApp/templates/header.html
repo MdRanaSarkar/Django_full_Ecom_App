@@ -1,5 +1,8 @@
 {%load static%}
 <!-- Begin Header Area -->
+{% load ecomtag %}
+{%ecom_cat as category%}
+{%ecom_set as setting%}
 <header class="li-header-4">
     <!-- Begin Header Top Area -->
     <div class="header-top">
@@ -95,7 +98,7 @@
                         {%csrf_token%}
                         <select name="cat_id" class="nice-select select-search-category">
                             <option value="0">All</option>
-
+                            
                             {% load mptt_tags %}
                             {% recursetree category %}
                             {%if node.is_leaf_node %}
@@ -125,6 +128,7 @@
                             </li>
                             <!-- Header Middle Wishlist Area End Here -->
                             <!-- Begin Header Mini Cart Area -->
+                            
                             <li class="hm-minicart">
                                 <div class="hm-minicart-trigger">
                                     <span class="item-icon"></span>
@@ -301,7 +305,7 @@
                                             <ul>
                                                 <li><a href="contact.html">Contact</a></li>
                                                 <li><a href="about-us.html">About Us</a></li>
-                                                <li><a href="faq.html">FAQ</a></li>
+                                                <li><a href="{%url 'Faq_details'%}">FAQ</a></li>
                                                 <li><a href="404.html">404 Error</a></li>
                                             </ul>
                                         </li>

@@ -1,5 +1,5 @@
 from django.shortcuts import render, HttpResponse, redirect, HttpResponseRedirect
-from EcomApp.models import Setting, ContactMessage, ContactForm
+from EcomApp.models import Setting, ContactMessage, ContactForm, FAQ
 from django.contrib import messages
 from Product.models import Product, Images, Category, Comment
 from EcomApp.forms import SearchForm
@@ -13,32 +13,29 @@ def Home(request):
     total_amount = 0
     for p in cart_product:
         total_amount += p.product.new_price*p.quantity
-    category = Category.objects.all()
-    setting = Setting.objects.get(id=1)
+  
     sliding_images = Product.objects.all().order_by('id')[:2]
     latest_products = Product.objects.all().order_by('-id')
     products = Product.objects.all()
+
     total_quan = 0
     for p in cart_product:
         total_quan += p.quantity
 
-    context = {'category': category,
-               'setting': setting,
-               'sliding_images': sliding_images,
-               'latest_products': latest_products,
-               'products': products,
-               'cart_product': cart_product,
-               'total_amount': total_amount,
-               'total_quan': total_quan
-               }
+    context = {  
+        'sliding_images': sliding_images,
+        'latest_products': latest_products,
+        'products': products,
+        'cart_product': cart_product,
+        'total_amount': total_amount,
+        'total_quan': total_quan
+    }
     return render(request, 'home.html', context)
 
 
 def About(request):
-    category = Category.objects.all()
-    setting = Setting.objects.get(id=1)
-    context = {'setting': setting,
-               'category': category, }
+ 
+    context = {}
     return render(request, 'about.html', context)
 
 
@@ -57,11 +54,11 @@ def contact(request):
 
             return redirect('contact_dat')
 
-    setting = Setting.objects.get(pk=1)
+
     form = ContactForm
-    category = Category.objects.all()
+   
     context = {
-        'setting': setting, 'form': form, 'category': category,
+        'form': form, 
     }
     return render(request, 'contact_form.html', context)
 
@@ -122,3 +119,17 @@ def category_product(request, id, slug):
         'sliding_images': sliding_images,
     }
     return render(request, 'category_products.html', context)
+
+
+def Faq_details(request):
+    category = Category.objects.all()
+    setting = Setting.objects.get(id=1)
+    faq = FAQ.objects.filter(status=True).order_by('created_at')
+
+    context = {
+        'category': category,
+        'setting': setting,
+        'faq': faq
+
+    }
+    return render(request, 'faq.html', context)
