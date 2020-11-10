@@ -23,6 +23,7 @@
 
  {% block header %}
  {% include "header.html" %}
+ 
  {% endblock header %}
 
 
@@ -109,8 +110,23 @@
                                  </span>
                              </p>
                          </div>
+                             
+                                  <div class="product-variants">
+                                        <div class="produt-variants-size">
 
+                                            <label>Dimension</label>
+                                            <select class="nice-select name='' ">
+                                                <option value="1" title="S" selected="selected">40x60cm</option>
+                                                <option value="2" title="M">60x90cm</option>
+                                                <option value="3" title="L">80x120cm</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                         
+
+                               
                          <div class="single-add-to-cart">
+                           
                              <form action="{%url 'Add_to_Shoping_cart' id=single_product.id %}" class="cart-quantity"
                                  method="post">
                                  {% csrf_token %}
@@ -121,13 +137,16 @@
                                          <input class="cart-plus-minus-box" value="1"
                                              min="{{single_product.min_amount}}" max="{{single_product.amount}}"
                                              type="number" name="quantity">
+                                             
                                          <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
                                          <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
                                      </div>
                                  </div>
                                  <button class="add-to-cart" type="submit">Add to cart</button>
                              </form>
+                 
                          </div>
+                         <br/>
                          <div class="product-additional-info pt-25">
                              <a class="wishlist-btn" href="wishlist.html"><i class="fa fa-heart-o"></i>Add to
                                  wishlist</a>
